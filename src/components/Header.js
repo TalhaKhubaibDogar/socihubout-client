@@ -124,7 +124,7 @@ function Header() {
                             textDecoration: 'none',
                         }}
                     >
-                        CANDYPAINT
+                        SOCIHUBOUT
                     </Typography>
 
                     {userType !== '2' && (
@@ -170,7 +170,7 @@ function Header() {
                         variant="h5"
                         noWrap
                         component="a"
-                        href="#"
+                        href="/dashboard"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -182,7 +182,7 @@ function Header() {
                             textDecoration: 'none',
                         }}
                     >
-                        CANDYPAINT
+                        SOCIHUBOUT
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {showMyEvent && (

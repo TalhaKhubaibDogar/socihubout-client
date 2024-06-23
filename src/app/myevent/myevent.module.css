@@ -1,0 +1,29 @@
+.main{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+.event_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.event_cards {
+  display: grid;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+
+.event_card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.event_card h2 {
+  margin-top: 0;
+}

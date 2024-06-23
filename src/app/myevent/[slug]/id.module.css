@@ -1,0 +1,26 @@
+.event_container {
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 1rem;
+  background-color: #c7c6c6;
+  border-radius: 1rem;
+}
+.centerButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deleteButton{
+    padding: 0.7rem;
+    border-radius: 7px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #2f2e2e;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.deleteButton:hover{
+    background-color: #242424;
+}
