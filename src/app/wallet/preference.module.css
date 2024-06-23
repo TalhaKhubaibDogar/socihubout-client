@@ -1,0 +1,59 @@
+.mainWallet{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.wallet{
+  padding: 1rem;
+  width: 30%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #b0b0b0 100%;
+  border-radius: 1.5rem;
+  height: fit-content;
+}
+.transaction{
+  width: 70%;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #b0b0b0 100%;
+  border-radius: 1.5rem;
+  overflow-x: auto;
+}
+.transaction table {
+    width: 100%;
+    /* border-collapse: separate; */
+    border-spacing: 10px;
+}
+
+.transaction th, .transaction td {
+    padding: 10px; 
+    text-align: left;
+    border: 1px solid #ddd; 
+}
+
+.transaction th {
+    background-color: #f4f4f4;
+}
+
+.transaction tbody {
+    background-color: #f9f9f9;
+}
+@media only screen and (max-width: 900px) {
+  .mainWallet{
+    flex-wrap: wrap;
+  }
+  .wallet{
+    width: 50%;
+  }
+  .transaction{
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .wallet{
+    width: 100%;
+  }
+  .transaction{
+    border-radius: 0.5rem;
+  }
+}

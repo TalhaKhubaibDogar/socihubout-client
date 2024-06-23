@@ -1,0 +1,20 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url("../assets/background2.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+.btn {
+  background-color: #fef9f9;
+  color: black;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
