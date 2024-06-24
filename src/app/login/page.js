@@ -58,13 +58,14 @@ export default function Login() {
         localStorage.setItem('access_token', data.access_token)
         localStorage.setItem('refresh_token', data.refresh_token)
         localStorage.setItem('expire_on', data.expire_on)
+        localStorage.setItem('profile_image', data.profile_image)
         localStorage.setItem('isLoggedIn', true)
 
         router.push('/dashboard')
       })
       .catch((error) => {
         console.log(error)
-        alert('Login failed. Please check your credentials and try again.')
+        alert(error?.response?.data?.meta?.message)
       })
   }
 

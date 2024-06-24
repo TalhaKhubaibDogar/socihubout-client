@@ -15,13 +15,13 @@ export default function ForgotPassword() {
   const handleForgotPassword = (event) => {
     event.preventDefault()
     axios
-      .post('https://api.socihubout.site/api/v1/users/reset-password/', {
+      .post('https://api.socihubout.site/api/v1/users/password-reset/', {
         email: email,
       })
       .then((response) => {
         // Handle successful OTP verification
         console.log(response.data)
-        alert('Check your email to Reset Password')
+        alert(response?.data?.meta?.message)
         router.push('/login')
       })
       .catch((error) => {

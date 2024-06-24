@@ -6,8 +6,8 @@
     align-items: center;
     min-height: 100vh;
     background:
-        linear-gradient(rgba(246, 247, 249, 0.8),
-            rgba(246, 247, 249, 0.8));
+        linear-gradient(rgba(41,73,88, 0.7),
+            rgba(61,125,146, 0.7));
     background-size: cover;
 }
 
@@ -24,7 +24,7 @@
 
 .nav {
     font-size: 1.5rem;
-    margin-bottom: 16px;
+    margin-bottom: 25px;
 }
 
 .links {
@@ -36,10 +36,10 @@
 
 .signinActive a,
 .signupActive a {
-    border-bottom: 2px solid #1059FF;
+    border-bottom: 2px solid #3d7d92;
     color: #ffffff;
     text-decoration: none;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 .label {
@@ -85,7 +85,7 @@
     margin-top: 1rem;
     border: none;
     border-radius: 20px;
-    background-color: #1059FF;
+    background-color: #3d7d92;
     color: #ffffff;
     font-weight: bold;
     cursor: pointer;
@@ -93,7 +93,7 @@
 }
 
 .button:hover {
-    background-color: #0F4FE6;
+    background-color: #1d667e;
 }
 
 .forgot {

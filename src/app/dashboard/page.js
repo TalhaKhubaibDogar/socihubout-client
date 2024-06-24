@@ -114,17 +114,17 @@ export default function Dashboard() {
   const handleFeed = () => {
     const token = localStorage.getItem("access_token");
     axios
-      .get("https://api.socihubout.site/api/v1/users/feed/", {
+      .get("https://api.socihubout.site/api/v1/feed/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        setEvent(response?.data?.data?.Items);
+        setEvent(response?.data?.response);
       })
       .catch((error) => {
-        if (error.response && error.response.data.code === 401) {
+        if (error.response && error?.response?.data?.meta?.code === 401) {
           // If the API returns a 401 error, clear the localStorage and redirect to login page
           localStorage.clear();
           router.push("/login");
@@ -155,7 +155,7 @@ export default function Dashboard() {
         handleFeed();
       })
       .catch((error) => {
-        if (error.response && error.response.data.code === 401) {
+        if (error.response && error?.response?.data?.meta?.code === 401) {
           // If the API returns a 401 error, clear the localStorage and redirect to login page
           localStorage.clear();
           router.push("/login");
@@ -170,7 +170,7 @@ export default function Dashboard() {
     const token = localStorage.getItem("access_token");
     axios
       .post(
-        `https://api.socihubout.site/api/v1/users/events/${eventId}/join`,
+        `https://api.socihubout.site/api/v1/user/events/${eventId}/join`,
         { event: eventId },
         {
           headers: {
@@ -185,7 +185,7 @@ export default function Dashboard() {
         handleFeed();
       })
       .catch((error) => {
-        if (error.response && error.response.data.code === 401) {
+        if (error.response && error?.response?.meta.code === 401) {
           // If the API returns a 401 error, clear the localStorage and redirect to login page
           setShowModal(false);
           localStorage.clear();
@@ -320,7 +320,7 @@ export default function Dashboard() {
       });
   };
   return (
-    <section className="container">
+    <section className={`${styles.extraContainer} container`}>
       {userRole === "2" ? (
         <div style={{ marginTop: "1rem" }}>
           <div className={styles.chipContainer}>
@@ -353,9 +353,9 @@ export default function Dashboard() {
           <div style={{ margin: "2rem auto", textAlign: "center" }}>
             <h2>Live syncs</h2>
           </div>
-          {event.length > 0 ? (
+          {event?.length > 0 ? (
             <div className={styles.event_cards}>
-              {event.map((event, index) => (
+              {event?.map((event, index) => (
                 <div className={styles.event_card} key={index}>
                   <div className={styles.event_details}>
                     <h2>{event.name}</h2>
@@ -378,14 +378,15 @@ export default function Dashboard() {
                       >
                         Copy Link
                       </button>
+
+                      {/* <QRCode value={referral || 'default code'} size={50} /> */}
+                    </div>
+                    <div className={styles.action_buttons}>
+                      <p>QRCode</p>
                       <QRCode
                         value={generateReferralLink(event.id)}
                         size={50}
                       />
-                      {/* <QRCode value={referral || 'default code'} size={50} /> */}
-                    </div>
-                    <div className={styles.action_buttons}>
-                      <p>Terms and Condition</p>
                     </div>
                     <div className={styles.action_buttons}>
                       <button

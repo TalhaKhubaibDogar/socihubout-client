@@ -1,8 +1,18 @@
+.extraContainer{
+  background:
+        linear-gradient(rgba(41,73,88, 0.7),
+            rgba(61,125,146, 0.7));
+    background-size: cover;
+    min-height: 92.5vh;
+}
 .chipContainer {
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: #b0b0b0 100%;
+  background:
+        linear-gradient(rgba(35, 43, 85, 0.75),
+            rgba(35, 43, 85, 0.95));
   border-radius: 1.5rem;
+  color:#fff;
 }
 
 .category {
@@ -35,24 +45,30 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 10px;
   padding: 20px;
-  background: linear-gradient(180deg, #e0e0e0 0%, #b0b0b0 100%);
+  /* background: linear-gradient(180deg, #e0e0e0 0%, #b0b0b0 100%); */
+  background:
+        linear-gradient(rgba(35, 43, 85, 0.75),
+            rgba(35, 43, 85, 0.95));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  color: #fff;
 }
 .description {
-  background-color: #fff;
+  background-color: #b0bdc2;
   padding: 1rem;
   border-radius: 1rem;
+  color: #000;
 }
 .cardBelow {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  color: #000;
 }
 .action_buttons {
-  background-color: #fff;
+  background-color: #b0bdc2;
   padding: 0.7rem;
   border-radius: 1rem;
   text-align: center;
@@ -69,13 +85,13 @@
 }
 
 .chip.selected {
-  background: #ff4d4d;
+  background: #3d7d92;
   color: #fff;
 }
 
 .submitButton {
   padding: 10px 20px;
-  background: #525252;
+  background: #3d7d92;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -84,10 +100,10 @@
 }
 
 .submitButton:hover {
-  background: #000000;
+  background: #1d667e;
 }
 .joinButton {
-  background: #1a1a1a;
+  background: #3d7d92;
   color: white;
   border: none;
   border-radius: 5px;
@@ -95,17 +111,24 @@
   cursor: pointer;
   margin-top: 10px;
 }
-
+.joinButton:hover {
+  background: #1d667e;
+}
 .joinButton:disabled {
-  background: #6c757d;
+  background: #567681;
+  cursor:default;
 }
 .copyLinkButton{
-  background: #1a1a1a;
+  background: #3d7d92;
   color: white;
   border: none;
-  padding: 5px;
+  padding: 8px;
   border-radius: 5px;
+  cursor: pointer;
   margin-bottom: 5px;
+}
+.copyLinkButton:hover {
+  background: #1d667e;
 }
 @media only screen and (max-width: 768px) {
   .event_cards {

@@ -1,3 +1,10 @@
+.extraContainer{
+  background:
+        linear-gradient(rgba(41,73,88, 0.7),
+            rgba(61,125,146, 0.7));
+    background-size: cover;
+    min-height: 93vh;
+}
 .mainWallet{
   display: flex;
   justify-content: space-between;
@@ -7,17 +14,23 @@
   padding: 1rem;
   width: 30%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: #b0b0b0 100%;
+  background:
+        linear-gradient(rgba(35, 43, 85, 0.75),
+            rgba(35, 43, 85, 0.95));
   border-radius: 1.5rem;
   height: fit-content;
+  color: #fff;
 }
 .transaction{
   width: 70%;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: #b0b0b0 100%;
+  background:
+        linear-gradient(rgba(35, 43, 85, 0.75),
+            rgba(35, 43, 85, 0.95));
   border-radius: 1.5rem;
   overflow-x: auto;
+  color: #fff;
 }
 .transaction table {
     width: 100%;

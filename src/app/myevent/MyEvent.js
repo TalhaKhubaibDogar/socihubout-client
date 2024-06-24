@@ -91,7 +91,7 @@ export default function Dashboard() {
       // Update state with the retrieved data
       setEvent(response?.data?.response);
     } catch (error) {
-      if (error.response && error.response.data.code === 401) {
+      if (error.response && error?.response?.data?.meta?.code === 401) {
         // If the API returns a 401 error, clear the localStorage and redirect to login page
         localStorage.clear();
         router.push("/login");

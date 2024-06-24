@@ -13,7 +13,7 @@ export default function EventPage() {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     axios
-      .get(`https://api.socihubout.site/api/v1/users/events/${params.slug}/`, {
+      .get(`https://api.socihubout.site/api/v1/user/events/${params.slug}/`, {
         // Use the slug as the event ID
         headers: {
           "Content-Type": "application/json",
@@ -21,10 +21,10 @@ export default function EventPage() {
         },
       })
       .then((response) => {
-        setData(response.data.data);
+        setData(response.data.response);
       })
       .catch((error) => {
-        if (error.response && error.response.data.code === 401) {
+        if (error.response && error?.response?.data?.meta?.code === 401) {
           // If the API returns a 401 error, clear the localStorage and redirect to login page
           localStorage.clear();
           router.push("/login");
@@ -36,23 +36,24 @@ export default function EventPage() {
   const HandleDelete = () => {
     const token = localStorage.getItem("access_token");
     axios
-      .delete(`https://api.socihubout.site/api/v1/users/events/${params.slug}/`, {
+      .delete(`https://api.socihubout.site/api/v1/user/events/${params.slug}/`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        alert(response.data.message_code);
+        console.log(response)
+        alert(response.data?.meta?.message);
         router.push("/myevent");
       })
       .catch((error) => {
-        if (error.response && error.response.data.code === 401) {
+        if (error.response && error?.response?.data?.meta?.code === 401) {
           // If the API returns a 401 error, clear the localStorage and redirect to login page
           localStorage.clear();
           router.push("/login");
         } else {
-          alert("Error fetching data:", error);
+          alert(error?.response?.data?.meta?.message);
         }
       });
   };
@@ -60,7 +61,7 @@ export default function EventPage() {
     return moment(dateStr).format("D MMMM hh:mm A");
   };
   return (
-    <div className="container">
+    <div className={`${styles.extraContainer} container`}>
       <h2 style={{ textAlign: "center", marginTop: "1.5rem" }}>
         Event Details
       </h2>

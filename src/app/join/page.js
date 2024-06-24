@@ -16,7 +16,7 @@ function PaymentSuccessComponent() {
     } else {
       axios
         .post(
-          `https://api.socihubout.site/api/v1/users/events/${eventId}/join`,
+          `https://api.socihubout.site/api/v1/user/events/${eventId}/join`,
           { event: eventId },
           {
             headers: {
@@ -30,10 +30,10 @@ function PaymentSuccessComponent() {
           router.push("/dashboard");
         })
         .catch((error) => {
-          if (error.response && error.response.data.code === 400) {
+          if (error.response && error?.response?.data?.meta?.code === 400) {
             localStorage.clear();
             router.push("/dashboard");
-          } else if (error.response && error.response.data.code === 401) {
+          } else if (error.response && error?.response?.data?.meta?.code === 401) {
             // If the API returns a 401 error, clear the localStorage and redirect to login page
             localStorage.clear();
             router.push("/login");

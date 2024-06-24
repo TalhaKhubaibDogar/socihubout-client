@@ -5,7 +5,6 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Container
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import axios from 'axios';
-import { Wallet } from '@mui/icons-material';
 const guestSettings = ['Login'];
 
 function Header() {
@@ -14,6 +13,7 @@ function Header() {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [data, setData] = useState("");
     const [showMyEvent, setShowMyEvent] = useState(false);
     const [userType, setUserType] = useState(null);
     const [renderHeader, setRenderHeader] = useState(true);
@@ -22,19 +22,26 @@ function Header() {
     useEffect(() => {
         const token = localStorage.getItem('access_token');
         const storedUserType = localStorage.getItem('role');
+        const first_name = localStorage.getItem('first_name');
+        const last_name = localStorage.getItem('last_name');
+        const profile_image = localStorage.getItem('profile_image');
+        setData({
+            first_name: first_name || '',
+            last_name: last_name || '',
+            profile_image: profile_image || ''
+        });
         const isAuth = !!token;
         setIsAuthenticated(isAuth);
         setUserType(storedUserType);
         setShowMyEvent(storedUserType && storedUserType !== '2');
-        const noHeaderRoutes = ['/forgotpassword', '/verify', '/signup', '/login', '/paymentsuccess', "/"];
+        const noHeaderRoutes = ['/forgotPassword', '/verify', '/signup', '/login', '/paymentsuccess', "/"];
         setRenderHeader(!noHeaderRoutes.includes(pathname));
         if (storedUserType === '1') {
-            setAuthSettings(['Dashboard', 'Logout']);
+            setAuthSettings(['Dashboard', 'Profile', 'Logout']);
         } else {
-            setAuthSettings(['Dashboard', 'Wallet', 'Logout',]);
+            setAuthSettings(['Dashboard', 'Profile', 'Wallet', 'Logout',]);
         }
     }, [pathname]);
-
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -59,6 +66,9 @@ function Header() {
         switch (setting) {
             case 'Dashboard':
                 router.push('/dashboard');
+                break;
+            case 'Profile':
+                router.push('/profile');
                 break;
             case 'Wallet':
                 router.push('/wallet');
@@ -90,7 +100,7 @@ function Header() {
                     router.push('/login');
                 })
                 .catch(error => {
-                    if (error.response && error.response.data.code === 401) {
+                    if (error.response && error?.response?.data?.meta?.code === 401) {
                         // If the API returns a 401 error, clear the localStorage and redirect to login page
                         localStorage.clear();
                         setIsAuthenticated(false);
@@ -199,7 +209,7 @@ function Header() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="User Avatar" src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAyL3BmLWljb240LWppcjIwNjQtcG9yLTAzLWxjb3B5LnBuZw.png" />
+                                <Avatar alt="User Avatar" src={data.profile_image ? data.profile_image : ''} />
                             </IconButton>
                         </Tooltip>
                         <Menu

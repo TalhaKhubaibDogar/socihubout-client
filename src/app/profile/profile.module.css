@@ -1,0 +1,72 @@
+.extraContainer {
+  background:
+    linear-gradient(rgba(41, 73, 88, 0.7),
+      rgba(61, 125, 146, 0.7));
+  background-size: cover;
+  min-height: 93vh;
+}
+
+.transaction {
+  padding: 1rem;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background:
+        linear-gradient(rgba(35, 43, 85, 0.75),
+            rgba(35, 43, 85, 0.95)); */
+  border-radius: 1.5rem;
+  overflow-x: auto;
+  color: #fff;
+}
+.headingButton{
+  display: flex;
+  justify-content: space-between;
+}
+.headingButton button{
+  background: #3d7d92;
+  color: white;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.headingButton button:hover{
+  background: #1d667e;
+  border: 1px solid #3d7d92;
+}
+.transaction table {
+  width: 70%;
+  border-spacing: 10px;
+}
+
+.transaction th,
+.transaction td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.transaction th {
+  background:
+    linear-gradient(rgba(35, 43, 85, 0.75),
+      rgba(35, 43, 85, 0.95));
+  color: #ffffff;
+}
+
+.transaction tbody {
+  background:
+    linear-gradient(rgba(35, 43, 85, 0.75),
+      rgba(35, 43, 85, 0.95));
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 900px) {
+  .transaction {
+    padding: 0.5rem;
+  }
+
+  .transaction table {
+    width: 100%;
+    border-spacing: 4px;
+  }
+}

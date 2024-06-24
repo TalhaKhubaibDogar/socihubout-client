@@ -142,19 +142,19 @@ export default function Dashboard() {
             start_datetime: moment(eventData.start_datetime).format('YYYY-MM-DDTHH:mm:ssZ'),
             end_datetime: moment(eventData.end_datetime).format('YYYY-MM-DDTHH:mm:ssZ'),
         };
-        axios.post('https://api.socihubout.site/api/v1/users/events/', formattedEventData, {
+        axios.post('https://api.socihubout.site/api/v1/user/events/', formattedEventData, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
             .then(response => {
-                alert(response.data.message_code);
+                alert(response.data?.meta?.message);
                 handleClose();
                 fetchEvents();
             })
             .catch(error => {
-                alert('Error creating event:', error);
+                alert(error?.response?.data?.meta?.message);
             });
     };
     // Getting the current datetime in the required format for input[type='datetime-local']
@@ -176,10 +176,10 @@ export default function Dashboard() {
     }, []);
 
     return (
-        <div className='container'>
+        <div className={`${styles.extraContainer} container`}>
             <div className={styles.main}>
                 <h1>My Events</h1>
-                <Button variant="contained" sx={{ backgroundColor: '#272727', color: '#fff' }} onClick={handleOpen}>
+                <Button variant="contained" sx={{ backgroundColor: '#000', color: '#fff' }} onClick={handleOpen}>
                     Create Event
                 </Button>
             </div>

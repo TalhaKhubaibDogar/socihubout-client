@@ -66,7 +66,7 @@ export default function SignUp() {
     } catch (error) {
       console.error('Signup error:', error);
       // Handle signup error, e.g., show an error message
-      alert(error.response.data.data.message);
+      alert(error?.response?.data?.meta?.message);
     } finally {
       setSubmitting(false);
     }
