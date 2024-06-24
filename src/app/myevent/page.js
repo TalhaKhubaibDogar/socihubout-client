@@ -176,7 +176,7 @@ export default function Dashboard() {
     }, []);
 
     return (
-        <div className={`${styles.extraContainer} container`}>
+        <div className='container'>
             <div className={styles.main}>
                 <h1>My Events</h1>
                 <Button variant="contained" sx={{ backgroundColor: '#000', color: '#fff' }} onClick={handleOpen}>

@@ -23,8 +23,8 @@ export async function POST(req) {
         },
       ],
       mode: 'payment',
-      success_url: 'http://localhost:3000/paymentSuccess',
-      cancel_url: 'http://localhost:3000/',
+      success_url: 'https://socihubout-client.vercel.app/paymentSuccess',
+      cancel_url: 'https://socihubout-client.vercel.app/',
       metadata: {
         donation_id: 'Candy_01',
       },

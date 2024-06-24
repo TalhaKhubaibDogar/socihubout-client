@@ -2,19 +2,31 @@
 import React, { useState, useEffect } from "react";
 import styles from "./profile.module.css";
 import axios from "axios";
-import { Button, TextField, Modal, Box, IconButton, Typography } from '@mui/material';
+import { Button, TextField, Modal, Box, IconButton, Typography, Avatar, Card, CardContent, CardMedia } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 export default function Profile() {
-    
-    const [data, setData] = useState("");
+    const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+        setEventData({
+            first_name: data.first_name || '',
+            last_name: data.last_name || '',
+        });
+        setImage(data.profile_image || '');
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const [eventData, setEventData] = useState({
         first_name: '',
         last_name: '',
     });
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState('');
+
     useEffect(() => {
         const first_name = localStorage.getItem('first_name');
         const last_name = localStorage.getItem('last_name');
@@ -26,16 +38,9 @@ export default function Profile() {
             profile_image: profile_image || ''
         });
     }, []);
-    const handleClose = () => {
-        setOpen(false);
-        setEventData((prevEventData) => ({
-            first_name:'',
-            last_name:''
-        }));
-        setImage(null)
-    };
-    const token =
-        typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+
+    const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+
     const handleEditProfile = () => {
         const formData = new FormData();
         formData.append('first_name', eventData.first_name);
@@ -54,6 +59,8 @@ export default function Profile() {
                 const profileData = response?.data?.response;
                 setData(profileData);
                 localStorage.setItem('profile_image', profileData.profile_image);
+                localStorage.setItem('first_name', profileData.first_name);
+                localStorage.setItem('last_name', profileData.last_name);
                 handleClose();
             })
             .catch((error) => {
@@ -65,8 +72,9 @@ export default function Profile() {
                 }
             });
     };
+
     return (
-        <section className={`${styles.extraContainer} container`}>
+        <section className='container'>
             <div className={styles.transaction}>
                 <div className={styles.headingButton}>
                     <h2>Profile</h2>
@@ -74,23 +82,24 @@ export default function Profile() {
                         Edit Profile
                     </button>
                 </div>
-                {data ? (
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{data.first_name}</td>
-                                <td>{data.last_name}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                {data.first_name || data.last_name ? (
+                    <div className={styles.profileData}>
+                        <Avatar
+                            alt="Profile Image"
+                            src={data.profile_image}
+                            sx={{ width: 100, height: 100, }}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                <span>First Name: </span>{data.first_name}
+                            </Typography>
+                            <Typography gutterBottom variant="h5" component="div">
+                                <span>Last Name: </span>{data.last_name}
+                            </Typography>
+                        </CardContent>
+                    </div>
                 ) : (
-                    <p> Nothing to show</p>
+                    <p>Nothing to show</p>
                 )}
             </div>
             <Modal
@@ -104,30 +113,16 @@ export default function Profile() {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: {
-                        xs: '100vw',
-                        sm: '80vw',
-                    },
-                    maxWidth: {
-                        xs: '100%',
-                        sm: '600px',
-                    },
-                    maxHeight: {
-                        xs: '100vh', // Full height on extra-small screens (typically mobile devices)
-                        sm: '80vh', // Smaller height on small screens and above
-                    },
-                    overflowY: 'auto',
+                    width: '90vw',
+                    maxWidth: '400px',
                     bgcolor: 'background.paper',
-                    border: '2px solid #000',
+                    border: 'none',
                     boxShadow: 24,
                     p: 4,
-                    m: 0,
-                    borderRadius: {
-                        xs: 0, // No border radius on extra-small screens
-                        sm: '4px', // Rounded corners on small screens and above
-                    },
+                    borderRadius: '12px',
+                    textAlign: 'center'
                 }}>
-                    <Typography component="h2" style={{ fontWeight: 'bold', textAlign: 'center' }}>
+                    <Typography component="h2" style={{ fontWeight: 'bold', marginBottom: '16px' }}>
                         Edit Profile
                     </Typography>
                     <IconButton
@@ -142,12 +137,22 @@ export default function Profile() {
                     >
                         <CloseIcon />
                     </IconButton>
+                    <Avatar
+                        alt="Profile Image"
+                        src={image}
+                        sx={{ width: 100, height: 100, margin: '0 auto' }}
+                    />
+                    <IconButton color="primary" aria-label="upload picture" component="label">
+                        <input hidden accept="image/*" type="file" onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))} />
+                        <PhotoCameraIcon />
+                    </IconButton>
                     <TextField
                         label="First Name"
                         name="firstName"
                         fullWidth
                         value={eventData.first_name}
                         onChange={(e) => setEventData({ ...eventData, first_name: e.target.value })}
+                        sx={{ mt: 2 }}
                     />
                     <TextField
                         label="Last Name"
@@ -157,13 +162,7 @@ export default function Profile() {
                         onChange={(e) => setEventData({ ...eventData, last_name: e.target.value })}
                         sx={{ mt: 2 }}
                     />
-                    <input
-                        accept=".png, .jpg, .jpeg, .webp"
-                        type="file"
-                        onChange={(e) => setImage(e.target.files[0])}
-                        style={{ marginTop: 16 }}
-                    />
-                    <Button onClick={handleEditProfile} variant="contained" sx={{ mt: 2, backgroundColor: '#272727', color: '#fff' }}>
+                    <Button onClick={handleEditProfile} variant="contained" sx={{ mt: 2, backgroundColor: '#3d7d92', color: '#fff' }}>
                         Submit
                     </Button>
                 </Box>

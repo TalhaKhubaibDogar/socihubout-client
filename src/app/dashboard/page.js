@@ -320,7 +320,7 @@ export default function Dashboard() {
       });
   };
   return (
-    <section className={`${styles.extraContainer} container`}>
+    <section className='container'>
       {userRole === "2" ? (
         <div style={{ marginTop: "1rem" }}>
           <div className={styles.chipContainer}>

@@ -61,7 +61,7 @@ export default function EventPage() {
     return moment(dateStr).format("D MMMM hh:mm A");
   };
   return (
-    <div className={`${styles.extraContainer} container`}>
+    <div className='container'>
       <h2 style={{ textAlign: "center", marginTop: "1.5rem" }}>
         Event Details
       </h2>

@@ -1,11 +1,3 @@
-.extraContainer {
-  background:
-    linear-gradient(rgba(41, 73, 88, 0.7),
-      rgba(61, 125, 146, 0.7));
-  background-size: cover;
-  min-height: 93vh;
-}
-
 .transaction {
   padding: 1rem;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -16,11 +8,14 @@
   overflow-x: auto;
   color: #fff;
 }
-.headingButton{
+
+.headingButton {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.headingButton button{
+
+.headingButton button {
   background: #3d7d92;
   color: white;
   border: 1px solid #fff;
@@ -29,44 +24,35 @@
   cursor: pointer;
   font-weight: bold;
 }
-.headingButton button:hover{
+
+.headingButton button:hover {
   background: #1d667e;
   border: 1px solid #3d7d92;
 }
-.transaction table {
-  width: 70%;
-  border-spacing: 10px;
-}
 
-.transaction th,
-.transaction td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-
-.transaction th {
+.profileData {
+  margin-top: 1rem;
+  padding: 1rem;
   background:
-    linear-gradient(rgba(35, 43, 85, 0.75),
-      rgba(35, 43, 85, 0.95));
-  color: #ffffff;
-}
-
-.transaction tbody {
-  background:
-    linear-gradient(rgba(35, 43, 85, 0.75),
-      rgba(35, 43, 85, 0.95));
-  font-weight: 500;
+      linear-gradient(rgba(35, 43, 85, 0.75),
+        rgba(35, 43, 85, 0.95));
+  background-size: cover;
+  border-radius: 5px;
+  width: 40%;
 }
 
 @media only screen and (max-width: 900px) {
-  .transaction {
-    padding: 0.5rem;
+  .profileData{
+    width: 50%;
   }
-
-  .transaction table {
+}
+@media only screen and (max-width: 650px) {
+  .profileData{
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .profileData{
     width: 100%;
-    border-spacing: 4px;
   }
 }

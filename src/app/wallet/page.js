@@ -60,7 +60,7 @@ export default function Wallet() {
     handleTransaction();
   }, []);
   return (
-    <section className={`${styles.extraContainer} container`}>
+    <section className='container'>
       <div className={styles.mainWallet}>
         <div className={styles.wallet}>
           <h2>Your Wallet Details</h2>

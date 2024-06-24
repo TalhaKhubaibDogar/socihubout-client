@@ -87,6 +87,11 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: linear-gradient(rgba(41, 73, 88, 0.7),
+        rgba(61, 125, 146, 0.7));
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100%;
 }
 .container {
   max-width: 1440px;
