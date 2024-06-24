@@ -27,6 +27,7 @@ const style = {
   boxShadow: 24,
   p: 4,
   borderRadius: { xs: 0, sm: "4px" },
+  color: "#000",
 };
 
 const categories = {

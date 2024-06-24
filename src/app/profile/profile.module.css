@@ -40,7 +40,12 @@
   border-radius: 5px;
   width: 40%;
 }
-
+.data{
+  padding: 1rem;
+  width: 100%;
+  background-color: #1d667e;
+  border-radius: 16px;
+}
 @media only screen and (max-width: 900px) {
   .profileData{
     width: 50%;

@@ -2,30 +2,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./profile.module.css";
 import axios from "axios";
-import { Button, TextField, Modal, Box, IconButton, Typography, Avatar, Card, CardContent, CardMedia } from '@mui/material';
+import { Button, TextField, Modal, Box, IconButton, Typography, Avatar, CardContent } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 export default function Profile() {
     const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
-    const handleOpen = () => {
-        setEventData({
-            first_name: data.first_name || '',
-            last_name: data.last_name || '',
-        });
-        setImage(data.profile_image || '');
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const [eventData, setEventData] = useState({
         first_name: '',
         last_name: '',
     });
     const [image, setImage] = useState('');
+    const [imageFile, setImageFile] = useState(null);
 
     useEffect(() => {
         const first_name = localStorage.getItem('first_name');
@@ -39,15 +28,31 @@ export default function Profile() {
         });
     }, []);
 
+    useEffect(() => {
+        setEventData({
+            first_name: data.first_name || '',
+            last_name: data.last_name || '',
+        });
+        setImage(data.profile_image || '');
+    }, [data]);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
 
     const handleEditProfile = () => {
         const formData = new FormData();
         formData.append('first_name', eventData.first_name);
         formData.append('last_name', eventData.last_name);
-        if (image) {
-            formData.append('profile_image', image);
+        if (imageFile) {
+            formData.append('profile_image', imageFile);
         }
+
         axios
             .post("https://api.socihubout.site/api/v1/users/profile/", formData, {
                 headers: {
@@ -73,6 +78,19 @@ export default function Profile() {
             });
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEventData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setImage(URL.createObjectURL(file));
+            setImageFile(file); // Store the actual file object separately
+        }
+    };
+
     return (
         <section className='container'>
             <div className={styles.transaction}>
@@ -87,14 +105,24 @@ export default function Profile() {
                         <Avatar
                             alt="Profile Image"
                             src={data.profile_image}
-                            sx={{ width: 100, height: 100, }}
+                            sx={{ width: 100, height: 100, margin: '0 auto' }}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                <span>First Name: </span>{data.first_name}
+                                <span>
+                                    <p>First Name: </p>
+                                    <p className={styles.data}>
+                                        {data.first_name}
+                                    </p>
+                                </span>
                             </Typography>
                             <Typography gutterBottom variant="h5" component="div">
-                                <span>Last Name: </span>{data.last_name}
+                                <span>
+                                    <p>Last Name: </p>
+                                    <p className={styles.data}>
+                                        {data.last_name}
+                                    </p>
+                                </span>
                             </Typography>
                         </CardContent>
                     </div>
@@ -143,23 +171,23 @@ export default function Profile() {
                         sx={{ width: 100, height: 100, margin: '0 auto' }}
                     />
                     <IconButton color="primary" aria-label="upload picture" component="label">
-                        <input hidden accept="image/*" type="file" onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))} />
+                        <input hidden accept="image/*" type="file" onChange={handleImageChange} />
                         <PhotoCameraIcon />
                     </IconButton>
                     <TextField
                         label="First Name"
-                        name="firstName"
+                        name="first_name"
                         fullWidth
                         value={eventData.first_name}
-                        onChange={(e) => setEventData({ ...eventData, first_name: e.target.value })}
+                        onChange={handleChange}
                         sx={{ mt: 2 }}
                     />
                     <TextField
                         label="Last Name"
-                        name="lastName"
+                        name="last_name"
                         fullWidth
                         value={eventData.last_name}
-                        onChange={(e) => setEventData({ ...eventData, last_name: e.target.value })}
+                        onChange={handleChange}
                         sx={{ mt: 2 }}
                     />
                     <Button onClick={handleEditProfile} variant="contained" sx={{ mt: 2, backgroundColor: '#3d7d92', color: '#fff' }}>

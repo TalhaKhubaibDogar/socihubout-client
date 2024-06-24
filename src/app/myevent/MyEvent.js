@@ -220,7 +220,7 @@ export default function Dashboard() {
         }
       )
       .then((response) => {
-        alert(response?.meta?.message);
+        alert(response?.data?.meta?.message);
         handleClose();
         fetchEvents();
       })
