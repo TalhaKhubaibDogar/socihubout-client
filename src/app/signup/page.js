@@ -149,7 +149,7 @@ export default function SignUp() {
               <label htmlFor="userType" className={styles.label}>User Type</label>
               <Field as="select" name="userType" className={styles.select}>
                 <option value="" label="Select user type" />
-                <option value="1" label="HotSpot" />
+                <option value="1" label="Host" />
                 <option value="2" label="User" />
               </Field>
               <ErrorMessage name="userType" component="div" className={styles.error} />

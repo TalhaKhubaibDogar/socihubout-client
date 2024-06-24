@@ -120,3 +120,15 @@
     border-color: #007bff;
     outline: none;
 }
+
+@media only screen and (max-width: 900px) {
+    .frame {
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .frame {
+        width: 450px;
+    }
+}
