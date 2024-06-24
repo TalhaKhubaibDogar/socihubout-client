@@ -305,6 +305,7 @@ export default function Dashboard() {
             boxShadow: 24,
             p: 4,
             m: 0,
+            mb:1,
             borderRadius: {
               xs: 0, // No border radius on extra-small screens
               sm: "4px", // Rounded corners on small screens and above
