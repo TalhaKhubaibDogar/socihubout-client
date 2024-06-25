@@ -51,6 +51,8 @@ export default function Dashboard() {
     const router = useRouter();
     const [locationData, setLocationData] = useState(null);
     const [open, setOpen] = useState(false);
+    const [focus, setFocus] = useState(false);
+    const [isFocus, setIsFocus] = useState(false);
     const [event, setEvent] = useState('');
     const [eventData, setEventData] = useState({
         name: '',
@@ -63,7 +65,19 @@ export default function Dashboard() {
         description: '',
         keywords: [],
     });
-
+    const [locationPromptOpen, setLocationPromptOpen] = useState(false);
+    const handleFocus = () => {
+        setIsFocus(true)
+    }
+    const handleBlur = () => {
+        setIsFocus(false)
+    }
+    const handleFocus2 = () => {
+        setFocus(true)
+    }
+    const handleBlur2 = () => {
+        setFocus(false)
+    }
     const fetchEvents = async () => {
         try {
             const token = localStorage.getItem('access_token');
@@ -83,6 +97,7 @@ export default function Dashboard() {
     useEffect(() => {
         fetchEvents();
     }, []);
+
     useEffect(() => {
         const userData = localStorage.getItem('role');
         if (!userData) {
@@ -93,6 +108,8 @@ export default function Dashboard() {
                 navigator.permissions.query({ name: 'geolocation' }).then((result) => {
                     if (result.state === 'granted') {
                         getLocationData();
+                    } else if (result.state === 'prompt' || result.state === 'denied') {
+                        setLocationPromptOpen(true);
                     }
                 });
             } else {
@@ -100,6 +117,7 @@ export default function Dashboard() {
             }
         }
     }, [router]);
+
     useEffect(() => {
         if (locationData) {
             setEventData((prevEventData) => ({
@@ -111,6 +129,7 @@ export default function Dashboard() {
             }));
         }
     }, [locationData]);
+
     const getLocationData = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -162,6 +181,11 @@ export default function Dashboard() {
         }));
     };
 
+    const handleLocationPromptClose = () => {
+        setLocationPromptOpen(false);
+        getLocationData();
+    };
+
     const handleSelectChange = (category, value) => {
         setEventData((prevEventData) => ({
             ...prevEventData,
@@ -175,6 +199,7 @@ export default function Dashboard() {
             keywords: prevEventData.keywords.filter((keyword) => keyword !== keywordToDelete),
         }));
     };
+
     const handleSubmit = () => {
         const token = localStorage.getItem('access_token');
         const formattedEventData = {
@@ -340,15 +365,14 @@ export default function Dashboard() {
                     />
                     <TextField
                         label="Start Date and Time"
-                        type="datetime-local"
+                        type={focus ? "datetime-local" : "text"}
+                        onFocus={handleFocus2}
+                        onBlur={handleBlur2}
                         fullWidth
                         value={eventData.start_datetime}
                         onChange={(e) =>
                             setEventData({ ...eventData, start_datetime: e.target.value })
                         }
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
                         inputProps={{
                             min: minDateTime,
                         }}
@@ -356,15 +380,14 @@ export default function Dashboard() {
                     />
                     <TextField
                         label="End Date and Time"
-                        type="datetime-local"
+                        type={isFocus ? "datetime-local" : "text"}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                         fullWidth
                         value={eventData.end_datetime}
                         onChange={(e) =>
                             setEventData({ ...eventData, end_datetime: e.target.value })
                         }
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
                         inputProps={{
                             min: eventData.start_datetime || minDateTime, // Ensure end time is not before start time
                         }}
@@ -429,6 +452,45 @@ export default function Dashboard() {
                         sx={{ mt: 2, }}
                     >
                         Submit
+                    </Button>
+                </Box>
+            </Modal>
+
+            <Modal
+                open={locationPromptOpen}
+                onClose={handleLocationPromptClose}
+                aria-labelledby="location-prompt-title"
+                aria-describedby="location-prompt-description"
+            >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#fff",
+                        width: {
+                            xs: "90vw",
+                            sm: "400px",
+                        },
+                        background: "linear-gradient(rgba(41, 73, 88, 1), rgba(61, 125, 146, 1))",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: "12px",
+                    }}
+                >
+                    <Typography id="location-prompt-title" variant="h6" component="h2" gutterBottom>
+                        Enable Location Services
+                    </Typography>
+                    <Typography id="location-prompt-description" sx={{ mb: 2 }}>
+                        To create an event, we need access to your location. Please enable location services in your browser settings.
+                    </Typography>
+                    <Button
+                        onClick={handleLocationPromptClose}
+                        variant="contained"
+                        sx={{ mt: 2, background: "#1976d2", color: "#fff" }}
+                    >
+                        Enable Location
                     </Button>
                 </Box>
             </Modal>
