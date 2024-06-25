@@ -29,6 +29,7 @@ const categories = {
 const inputFieldStyles = {
   mt: 2,
   color: '#fff',
+  borderRadius: '30px',
   background: "linear-gradient(rgba(35, 43, 85, 1), rgba(35, 43, 85, 1))",
   '& .MuiInputBase-root': {
     color: '#fff', // Changes the text color
@@ -155,6 +156,12 @@ export default function Dashboard() {
                 country: country || "",
                 displayName: displayName || "",
               });
+              setEventData(prevEventData => ({
+                ...prevEventData,
+                latitude: latitude.toString(), // Ensure the latitude is updated
+                longitude: longitude.toString(), // Ensure the longitude is updated
+                address: displayName || prevEventData.address
+              }));
             } else {
               console.error("No location details found.");
             }
@@ -200,12 +207,10 @@ export default function Dashboard() {
     const token = localStorage.getItem("access_token");
     const formattedEventData = {
       ...eventData,
-      start_datetime: moment(eventData.start_datetime).format(
-        "YYYY-MM-DDTHH:mm:ssZ"
-      ),
-      end_datetime: moment(eventData.end_datetime).format(
-        "YYYY-MM-DDTHH:mm:ssZ"
-      ),
+      start_datetime: moment(eventData.start_datetime).format("YYYY-MM-DDTHH:mm:ssZ"),
+      end_datetime: moment(eventData.end_datetime).format("YYYY-MM-DDTHH:mm:ssZ"),
+      latitude: eventData.latitude, // Send the latitude
+      longitude: eventData.longitude, // Send the longitude
     };
     axios
       .post(
@@ -346,6 +351,25 @@ export default function Dashboard() {
             onChange={(e) =>
               setEventData({ ...eventData, address: e.target.value })
             }
+            sx={inputFieldStyles}
+          />
+          <TextField
+            label="Latitude"
+            name="latitude"
+            type="number"
+            fullWidth
+            value={eventData.latitude}
+            onChange={(e) => setEventData({ ...eventData, latitude: e.target.value })}
+            sx={inputFieldStyles}
+          />
+
+          <TextField
+            label="Longitude"
+            name="longitude"
+            type="number"
+            fullWidth
+            value={eventData.longitude}
+            onChange={(e) => setEventData({ ...eventData, longitude: e.target.value })}
             sx={inputFieldStyles}
           />
           <TextField

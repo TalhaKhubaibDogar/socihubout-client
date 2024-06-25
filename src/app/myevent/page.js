@@ -16,7 +16,7 @@ const categories = {
 const inputFieldStyles = {
     mt: 2,
     color: '#fff',
-    borderRadius: '5px',
+    borderRadius: '30px',
     background: "linear-gradient(rgba(35, 43, 85, 1), rgba(35, 43, 85, 1))",
     '& .MuiInputBase-root': {
         color: '#fff', // Changes the text color
@@ -123,25 +123,31 @@ export default function Dashboard() {
                         if (data.address) {
                             const { village, town, city, state, country } = data.address;
                             const displayName = data.display_name;
-                            const location = village || town || city || '';
+                            const location = village || town || city || "";
                             setLocationData({
                                 latitude,
                                 longitude,
                                 location,
-                                state: state || '',
-                                country: country || '',
-                                displayName: displayName || '',
+                                state: state || "",
+                                country: country || "",
+                                displayName: displayName || "",
                             });
+                            setEventData(prevEventData => ({
+                                ...prevEventData,
+                                latitude: latitude.toString(), // Ensure the latitude is updated
+                                longitude: longitude.toString(), // Ensure the longitude is updated
+                                address: displayName || prevEventData.address
+                            }));
                         } else {
-                            console.error('No location details found.');
+                            console.error("No location details found.");
                         }
                     })
                     .catch((error) => {
-                        console.error('Error getting location details:', error);
+                        console.error("Error getting location details:", error);
                     });
             },
             (error) => {
-                console.error('Error getting location:', error);
+                console.error("Error getting location:", error);
             }
         );
     };
@@ -175,6 +181,8 @@ export default function Dashboard() {
             ...eventData,
             start_datetime: moment(eventData.start_datetime).format('YYYY-MM-DDTHH:mm:ssZ'),
             end_datetime: moment(eventData.end_datetime).format('YYYY-MM-DDTHH:mm:ssZ'),
+            latitude: eventData.latitude, // Send the latitude
+            longitude: eventData.longitude, // Send the longitude
         };
         axios.post('https://api.socihubout.site/api/v1/user/events/', formattedEventData, {
             headers: {
@@ -309,6 +317,25 @@ export default function Dashboard() {
                         onChange={(e) =>
                             setEventData({ ...eventData, address: e.target.value })
                         }
+                        sx={inputFieldStyles}
+                    />
+                    <TextField
+                        label="Latitude"
+                        name="latitude"
+                        type="number"
+                        fullWidth
+                        value={eventData.latitude}
+                        onChange={(e) => setEventData({ ...eventData, latitude: e.target.value })}
+                        sx={inputFieldStyles}
+                    />
+
+                    <TextField
+                        label="Longitude"
+                        name="longitude"
+                        type="number"
+                        fullWidth
+                        value={eventData.longitude}
+                        onChange={(e) => setEventData({ ...eventData, longitude: e.target.value })}
                         sx={inputFieldStyles}
                     />
                     <TextField
