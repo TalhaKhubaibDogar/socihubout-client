@@ -256,7 +256,12 @@ export default function Dashboard() {
       })
       .catch((error) => {
         console.log(error)
-        alert(error?.meta?.message);
+        if (error?.response?.data?.meta?.code === 401) {
+          localStorage.clear();
+          router.push("/login");
+        } else {
+          alert(error?.response?.data?.meta?.message);
+        }
       });
   };
 

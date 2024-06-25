@@ -221,7 +221,12 @@ export default function Dashboard() {
                 fetchEvents();
             })
             .catch(error => {
-                alert(error?.response?.data?.meta?.message);
+                if (error?.response?.data?.meta?.code === 401) {
+                    localStorage.clear();
+                    router.push("/login");
+                } else {
+                    alert(error?.response?.data?.meta?.message);
+                }
             });
     };
     // Getting the current datetime in the required format for input[type='datetime-local']
