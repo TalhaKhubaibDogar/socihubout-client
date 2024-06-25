@@ -6,6 +6,33 @@ import { Button, TextField, Modal, Box, IconButton, Typography, Avatar, CardCont
 import CloseIcon from '@mui/icons-material/Close';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
+const inputFieldStyles = {
+    mt: 2,
+    color: '#fff',
+    borderRadius: '5px',
+    background: "linear-gradient(rgba(41, 73, 88, 1), rgba(61, 125, 146, 1))",
+    '& .MuiInputBase-root': {
+        color: '#fff', // Changes the text color
+    },
+    '& label.Mui-focused': {
+        color: '#fff', // Changes the label color when focused
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'transparent',
+            borderRadius: '12px',
+        },
+        '&:hover fieldset': {
+            borderColor: 'transparent', // Removes border on hover
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'transparent', // Removes border when focused
+        },
+    },
+    '& .MuiInputLabel-root': {
+        color: '#fff' // Ensures labels are white
+    }
+};
 export default function Profile() {
     const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
@@ -96,9 +123,9 @@ export default function Profile() {
             <div className={styles.transaction}>
                 <div className={styles.headingButton}>
                     <h2>Profile</h2>
-                    <button onClick={handleOpen}>
+                    <Button onClick={handleOpen}>
                         Edit Profile
-                    </button>
+                    </Button>
                 </div>
                 {data.first_name || data.last_name ? (
                     <div className={styles.profileData}>
@@ -143,28 +170,31 @@ export default function Profile() {
                     transform: 'translate(-50%, -50%)',
                     width: '90vw',
                     maxWidth: '400px',
-                    bgcolor: 'background.paper',
                     border: 'none',
+                    color: '#fff',
                     boxShadow: 24,
                     p: 4,
                     borderRadius: '12px',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    background: "linear-gradient(rgba(35, 43, 85, 1), rgba(35, 43, 85, 1))",
                 }}>
-                    <Typography component="h2" style={{ fontWeight: 'bold', marginBottom: '16px' }}>
-                        Edit Profile
-                    </Typography>
-                    <IconButton
-                        aria-label="close"
-                        onClick={handleClose}
-                        sx={{
-                            position: 'absolute',
-                            right: 8,
-                            top: 8,
-                            color: (theme) => theme.palette.grey[500],
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems:"center" }}>
+                        <Typography component="h2" style={{ fontWeight: 'bold', marginBottom: '16px' }}>
+                            Edit Profile
+                        </Typography>
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={{
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                                color: (theme) => theme.palette.grey[100],
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
                     <Avatar
                         alt="Profile Image"
                         src={image}
@@ -180,7 +210,7 @@ export default function Profile() {
                         fullWidth
                         value={eventData.first_name}
                         onChange={handleChange}
-                        sx={{ mt: 2 }}
+                        sx={inputFieldStyles}
                     />
                     <TextField
                         label="Last Name"
@@ -188,7 +218,7 @@ export default function Profile() {
                         fullWidth
                         value={eventData.last_name}
                         onChange={handleChange}
-                        sx={{ mt: 2 }}
+                        sx={inputFieldStyles}
                     />
                     <Button onClick={handleEditProfile} variant="contained" sx={{ mt: 2, backgroundColor: '#3d7d92', color: '#fff' }}>
                         Submit

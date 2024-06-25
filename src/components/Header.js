@@ -5,6 +5,7 @@ import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Container
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import axios from 'axios';
+import Link from 'next/link';
 const guestSettings = ['Login'];
 
 function Header() {
@@ -122,8 +123,7 @@ function Header() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="/dashboard"
+                        component="div"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -134,7 +134,9 @@ function Header() {
                             textDecoration: 'none',
                         }}
                     >
-                        SOCIHUBOUT
+                        <Link href="/dashboard" legacyBehavior>
+                            <a style={{ textDecoration: 'none', color: 'inherit' }}>SOCIHUBOUT</a>
+                        </Link>
                     </Typography>
 
                     {userType !== '2' && (
@@ -179,8 +181,7 @@ function Header() {
                     <Typography
                         variant="h5"
                         noWrap
-                        component="a"
-                        href="/dashboard"
+                        component="div"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -192,7 +193,9 @@ function Header() {
                             textDecoration: 'none',
                         }}
                     >
-                        SOCIHUBOUT
+                        <Link href="/dashboard" legacyBehavior>
+                            <a style={{ textDecoration: 'none', color: 'inherit' }}>SOCIHUBOUT</a>
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {showMyEvent && (

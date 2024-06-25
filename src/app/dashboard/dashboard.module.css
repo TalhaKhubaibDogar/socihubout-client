@@ -109,7 +109,7 @@
   background: #1d667e;
 }
 .joinButton:disabled {
-  background: #567681;
+  background: #6f8890ca;
   cursor:default;
 }
 .copyLinkButton{

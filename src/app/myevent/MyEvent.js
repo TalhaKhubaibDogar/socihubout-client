@@ -22,42 +22,41 @@ import CloseIcon from "@mui/icons-material/Close";
 import moment from "moment";
 
 const categories = {
-  Mood: [
-    "chill",
-    "energetic",
-    "relaxed",
-    "vibrant",
-    "cozy",
-    "bohemian",
-    "sophisticated",
-    "fun",
-    "playful",
-    "mellow",
-  ],
-  Ambience: [
-    "intimate",
-    "inviting",
-    "electric",
-    "romantic",
-    "festive",
-    "laid-back",
-    "warm",
-    "modern",
-    "rustic",
-    "glamorous",
-  ],
-  PartyThemes: [
-    "tropical luau",
-    "1920s gatsby",
-    "disco fever",
-    "hollywood red carpet",
-    "masquerade ball",
-    "carnival/circus",
-    "beach bash",
-    "winter wonderland",
-    "casino night",
-    "around the world",
-  ],
+  Mood: ['chill', 'energetic', 'relaxed', 'vibrant', 'cozy', 'bohemian', 'sophisticated', 'fun', 'playful', 'mellow'],
+  Ambience: ['intimate', 'inviting', 'electric', 'romantic', 'festive', 'laid-back', 'warm', 'modern', 'rustic', 'glamorous'],
+  PartyThemes: ['tropical luau', '1920s gatsby', 'disco fever', 'hollywood red carpet', 'masquerade ball', 'carnival/circus', 'beach bash', 'winter wonderland', 'casino night', 'around the world'],
+};
+const inputFieldStyles = {
+  mt: 2,
+  color: '#fff',
+  background: "linear-gradient(rgba(35, 43, 85, 1), rgba(35, 43, 85, 1))",
+  '& .MuiInputBase-root': {
+    color: '#fff', // Changes the text color
+  },
+  '& label.Mui-focused': {
+    color: '#fff', // Changes the label color when focused
+  },
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: 'transparent', // Removes border
+      borderRadius: '12px',
+    },
+    '&:hover fieldset': {
+      borderColor: 'transparent', // Removes border on hover
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: 'transparent', // Removes border when focused
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#fff' // Ensures labels are white
+  }
+};
+const chipStyles = {
+  ...inputFieldStyles,
+  '& .MuiChip-deleteIcon': {
+    color: 'rgb(255 255 255) !important', // Add !important to ensure it overrides any other styles
+  },
 };
 export default function Dashboard() {
   const router = useRouter();
@@ -248,12 +247,11 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="container">
+    <section>
       <div className={styles.main}>
         <h1>My Events</h1>
         <Button
-          variant="contained"
-          sx={{ backgroundColor: "#272727", color: "#fff" }}
+          className={styles.headingButton}
           onClick={handleOpen}
         >
           Create Event
@@ -287,6 +285,7 @@ export default function Dashboard() {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
+            color: "#fff",
             width: {
               xs: "100vw",
               sm: "80vw",
@@ -300,12 +299,11 @@ export default function Dashboard() {
               sm: "80vh", // Smaller height on small screens and above
             },
             overflowY: "auto",
-            bgcolor: "background.paper",
-            border: "2px solid #000",
+            background: "linear-gradient(rgba(41, 73, 88, 1), rgba(61, 125, 146, 1))",
             boxShadow: 24,
             p: 4,
             m: 0,
-            mb:1,
+            mb: 1,
             borderRadius: {
               xs: 0, // No border radius on extra-small screens
               sm: "4px", // Rounded corners on small screens and above
@@ -338,6 +336,7 @@ export default function Dashboard() {
             onChange={(e) =>
               setEventData({ ...eventData, name: e.target.value })
             }
+            sx={inputFieldStyles}
           />
           <TextField
             label="Address"
@@ -347,7 +346,7 @@ export default function Dashboard() {
             onChange={(e) =>
               setEventData({ ...eventData, address: e.target.value })
             }
-            sx={{ mt: 2 }}
+            sx={inputFieldStyles}
           />
           <TextField
             label="Start Date and Time"
@@ -363,7 +362,7 @@ export default function Dashboard() {
             inputProps={{
               min: minDateTime,
             }}
-            sx={{ mt: 2 }}
+            sx={inputFieldStyles}
           />
           <TextField
             label="End Date and Time"
@@ -379,7 +378,7 @@ export default function Dashboard() {
             inputProps={{
               min: eventData.start_datetime || minDateTime, // Ensure end time is not before start time
             }}
-            sx={{ mt: 2 }}
+            sx={inputFieldStyles}
           />
           <TextField
             label="Description"
@@ -391,7 +390,7 @@ export default function Dashboard() {
             onChange={(e) =>
               setEventData({ ...eventData, description: e.target.value })
             }
-            sx={{ mt: 2 }}
+            sx={inputFieldStyles}
           />
           <Typography
             component="h2"
@@ -404,7 +403,7 @@ export default function Dashboard() {
             Add keywords For Preference
           </Typography>
           {Object.entries(categories).map(([category, values]) => (
-            <FormControl fullWidth sx={{ mt: 2 }} key={category}>
+            <FormControl fullWidth sx={inputFieldStyles} key={category}>
               <InputLabel>{category}</InputLabel>
               <Select
                 label={category}
@@ -419,24 +418,30 @@ export default function Dashboard() {
               </Select>
             </FormControl>
           ))}
-          <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: "wrap" }}>
+          <Stack direction="row" spacing={1}
+            sx={{
+              mt: 2,
+              flexWrap: "wrap",
+              color: '#fff',
+            }}>
             {eventData.keywords.map((keyword, index) => (
               <Chip
                 key={index}
                 label={keyword}
                 onDelete={() => handleDeleteKeyword(keyword)}
+                sx={chipStyles}
               />
             ))}
           </Stack>
           <Button
             onClick={handleSubmit}
-            variant="contained"
-            sx={{ mt: 2, backgroundColor: "#272727", color: "#fff" }}
+            className={styles.modalButton}
+            sx={{ mt: 2, }}
           >
             Submit
           </Button>
         </Box>
       </Modal>
-    </div>
+    </section>
   );
 }

@@ -16,9 +16,8 @@
 }
 
 .headingButton button {
-  background: #3d7d92;
+  background: #2a335a;
   color: white;
-  border: 1px solid #fff;
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
@@ -26,8 +25,7 @@
 }
 
 .headingButton button:hover {
-  background: #1d667e;
-  border: 1px solid #3d7d92;
+  background: #121b42;
 }
 
 .profileData {

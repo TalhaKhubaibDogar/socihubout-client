@@ -13,6 +13,40 @@ const categories = {
     Ambience: ['intimate', 'inviting', 'electric', 'romantic', 'festive', 'laid-back', 'warm', 'modern', 'rustic', 'glamorous'],
     PartyThemes: ['tropical luau', '1920s gatsby', 'disco fever', 'hollywood red carpet', 'masquerade ball', 'carnival/circus', 'beach bash', 'winter wonderland', 'casino night', 'around the world'],
 };
+const inputFieldStyles = {
+    mt: 2,
+    color: '#fff',
+    borderRadius: '5px',
+    background: "linear-gradient(rgba(35, 43, 85, 1), rgba(35, 43, 85, 1))",
+    '& .MuiInputBase-root': {
+        color: '#fff', // Changes the text color
+    },
+    '& label.Mui-focused': {
+        color: '#fff', // Changes the label color when focused
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'transparent',
+            borderRadius: '12px',
+        },
+        '&:hover fieldset': {
+            borderColor: 'transparent', // Removes border on hover
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'transparent', // Removes border when focused
+        },
+    },
+    '& .MuiInputLabel-root': {
+        color: '#fff' // Ensures labels are white
+    }
+};
+const chipStyles = {
+    ...inputFieldStyles,
+    '& .MuiChip-deleteIcon': {
+        color: 'rgb(255 255 255) !important', // Add !important to ensure it overrides any other styles
+    },
+};
+
 export default function Dashboard() {
     const router = useRouter();
     const [locationData, setLocationData] = useState(null);
@@ -179,7 +213,10 @@ export default function Dashboard() {
         <div className='container'>
             <div className={styles.main}>
                 <h1>My Events</h1>
-                <Button variant="contained" sx={{ backgroundColor: '#000', color: '#fff' }} onClick={handleOpen}>
+                <Button
+                    className={styles.headingButton}
+                    onClick={handleOpen}
+                >
                     Create Event
                 </Button>
             </div>
@@ -205,42 +242,48 @@ export default function Dashboard() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: {
-                        xs: '100vw',
-                        sm: '80vw',
-                    },
-                    maxWidth: {
-                        xs: '100%',
-                        sm: '600px',
-                    },
-                    maxHeight: {
-                        xs: '100vh', // Full height on extra-small screens (typically mobile devices)
-                        sm: '80vh', // Smaller height on small screens and above
-                    },
-                    overflowY: 'auto',
-                    bgcolor: 'background.paper',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    m: 0,
-                    borderRadius: {
-                        xs: 0, // No border radius on extra-small screens
-                        sm: '4px', // Rounded corners on small screens and above
-                    },
-                }}>
-                    <Typography component="h2" style={{ fontWeight: 'bold', textAlign: 'center' }}>
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#fff",
+                        width: {
+                            xs: "100vw",
+                            sm: "80vw",
+                        },
+                        maxWidth: {
+                            xs: "100%",
+                            sm: "600px",
+                        },
+                        maxHeight: {
+                            xs: "100vh", // Full height on extra-small screens (typically mobile devices)
+                            sm: "80vh", // Smaller height on small screens and above
+                        },
+                        overflowY: "auto",
+                        background: "linear-gradient(rgba(41, 73, 88, 1), rgba(61, 125, 146, 1))",
+                        boxShadow: 24,
+                        p: 4,
+                        m: 0,
+                        mb: 1,
+                        borderRadius: {
+                            xs: 0, // No border radius on extra-small screens
+                            sm: "4px", // Rounded corners on small screens and above
+                        },
+                    }}
+                >
+                    <Typography
+                        component="h2"
+                        style={{ fontWeight: "bold", textAlign: "center" }}
+                    >
                         Create Event
                     </Typography>
                     <IconButton
                         aria-label="close"
                         onClick={handleClose}
                         sx={{
-                            position: 'absolute',
+                            position: "absolute",
                             right: 8,
                             top: 8,
                             color: (theme) => theme.palette.grey[500],
@@ -253,43 +296,52 @@ export default function Dashboard() {
                         name="name"
                         fullWidth
                         value={eventData.name}
-                        onChange={(e) => setEventData({ ...eventData, name: e.target.value })}
+                        onChange={(e) =>
+                            setEventData({ ...eventData, name: e.target.value })
+                        }
+                        sx={inputFieldStyles}
                     />
                     <TextField
                         label="Address"
                         name="address"
                         fullWidth
                         value={eventData.address}
-                        onChange={(e) => setEventData({ ...eventData, address: e.target.value })}
-                        sx={{ mt: 2 }}
+                        onChange={(e) =>
+                            setEventData({ ...eventData, address: e.target.value })
+                        }
+                        sx={inputFieldStyles}
                     />
                     <TextField
                         label="Start Date and Time"
                         type="datetime-local"
                         fullWidth
                         value={eventData.start_datetime}
-                        onChange={(e) => setEventData({ ...eventData, start_datetime: e.target.value })}
+                        onChange={(e) =>
+                            setEventData({ ...eventData, start_datetime: e.target.value })
+                        }
                         InputLabelProps={{
                             shrink: true,
                         }}
                         inputProps={{
-                            min: minDateTime
+                            min: minDateTime,
                         }}
-                        sx={{ mt: 2 }}
+                        sx={inputFieldStyles}
                     />
                     <TextField
                         label="End Date and Time"
                         type="datetime-local"
                         fullWidth
                         value={eventData.end_datetime}
-                        onChange={(e) => setEventData({ ...eventData, end_datetime: e.target.value })}
+                        onChange={(e) =>
+                            setEventData({ ...eventData, end_datetime: e.target.value })
+                        }
                         InputLabelProps={{
                             shrink: true,
                         }}
                         inputProps={{
-                            min: eventData.start_datetime || minDateTime // Ensure end time is not before start time
+                            min: eventData.start_datetime || minDateTime, // Ensure end time is not before start time
                         }}
-                        sx={{ mt: 2 }}
+                        sx={inputFieldStyles}
                     />
                     <TextField
                         label="Description"
@@ -298,14 +350,23 @@ export default function Dashboard() {
                         multiline
                         rows={4}
                         value={eventData.description}
-                        onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
-                        sx={{ mt: 2 }}
+                        onChange={(e) =>
+                            setEventData({ ...eventData, description: e.target.value })
+                        }
+                        sx={inputFieldStyles}
                     />
-                    <Typography component="h2" style={{ fontWeight: 'bold', textAlign: 'center', marginTop: "1rem" }}>
+                    <Typography
+                        component="h2"
+                        style={{
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            marginTop: "1rem",
+                        }}
+                    >
                         Add keywords For Preference
                     </Typography>
                     {Object.entries(categories).map(([category, values]) => (
-                        <FormControl fullWidth sx={{ mt: 2 }} key={category}>
+                        <FormControl fullWidth sx={inputFieldStyles} key={category}>
                             <InputLabel>{category}</InputLabel>
                             <Select
                                 label={category}
@@ -313,21 +374,33 @@ export default function Dashboard() {
                                 value=""
                             >
                                 {values.map((value) => (
-                                    <MenuItem key={value} value={value}>{value}</MenuItem>
+                                    <MenuItem key={value} value={value}>
+                                        {value}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
                     ))}
-                    <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: 'wrap' }}>
+                    <Stack direction="row" spacing={1}
+                        sx={{
+                            mt: 2,
+                            flexWrap: "wrap",
+                            color: '#fff',
+                        }}>
                         {eventData.keywords.map((keyword, index) => (
                             <Chip
                                 key={index}
                                 label={keyword}
                                 onDelete={() => handleDeleteKeyword(keyword)}
+                                sx={chipStyles}
                             />
                         ))}
                     </Stack>
-                    <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2, backgroundColor: '#272727', color: '#fff' }}>
+                    <Button
+                        onClick={handleSubmit}
+                        className={styles.modalButton}
+                        sx={{ mt: 2, }}
+                    >
                         Submit
                     </Button>
                 </Box>
