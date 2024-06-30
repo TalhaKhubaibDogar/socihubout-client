@@ -37,13 +37,12 @@
     border: 1px solid #ddd; 
 }
 
-.transaction th {
-    background-color: #f4f4f4;
+.transaction th tbody{
+    background:
+        linear-gradient(rgba(56, 72, 151, 0.75),
+          rgba(46, 64, 152, 0.95));
 }
 
-.transaction tbody {
-    background-color: #f9f9f9;
-}
 @media only screen and (max-width: 900px) {
   .mainWallet{
     flex-wrap: wrap;
