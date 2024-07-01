@@ -7,7 +7,7 @@ import {
 import { useFormik } from "formik";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
-import styles from './CandyModal.module.css';
+import styles from './SocihuboutModal.module.css';
 
 export default function CandyModal({ open, setOpen }) {
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function CandyModal({ open, setOpen }) {
       setLoading(true);
       try {
         const response = await axios.post(
-          "/api/CandyPaymentLink",
+          "/api/SocihuboutPaymentLink",
           values.price
         );
         console.log(response?.data?.url?.url);

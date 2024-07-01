@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
 import styles from '../login/login.module.css'
-import CandyModal from '@/components/CandyModal';
+import SocihuboutModal from '@/components/SocihuboutModal';
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required('First Name is required'),
@@ -164,7 +164,7 @@ export default function SignUp() {
           </Link>
         </div>
       </div>
-      <CandyModal open={candyOpen} setOpen={setCandyOpen} />
+      <SocihuboutModal open={candyOpen} setOpen={setCandyOpen} />
     </div>
   );
 }
