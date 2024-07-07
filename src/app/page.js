@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import Styles from "./page.module.css";
 import Link from "next/link";
 
@@ -19,17 +19,26 @@ export default function Home() {
         style={{
           display: "flex",
           justifyContent: "center",
+          flexDirection: "column",
           alignItems: "center",
           height: "100vh",
           gap: "1rem",
         }}
       >
-        <Link href="/signup" legacyBehavior>
-          <a className={Styles.btn}>Sign Up</a>
-        </Link>
-        <Link href="/login" legacyBehavior>
-          <a className={Styles.btn}>Login</a>
-        </Link>
+        <h1 className={Styles.heading}>Socihubout</h1>
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "1rem",
+        }}>
+          <Link href="/signup" legacyBehavior>
+            <a className={Styles.btn}>Sign Up</a>
+          </Link>
+          <Link href="/login" legacyBehavior>
+            <a className={Styles.btn}>Login</a>
+          </Link>
+        </div>
       </div>
     </section>
   );
